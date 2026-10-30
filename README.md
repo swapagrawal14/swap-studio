@@ -15,6 +15,11 @@ Frame-perfect [SwapDraws](https://github.com/swapagrawal14/swap-draws) rendering
 
 ---
 
+## 🤖 Using it with an AI
+Give any AI (ChatGPT, Gemini, Claude, Codex, LM Arena…) this repo's link plus your topic. It should read [`AGENTS.md`](AGENTS.md), which explains the whole pipeline, the brand rules and how to deliver.
+
+> *"Read AGENTS.md in github.com/swapagrawal14/swap-studio and make me a 60-second Edu Made Fun reel on dry socket."*
+
 ## ✨ What's inside
 
 | Folder | What it does |

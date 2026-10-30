@@ -1,0 +1,38 @@
+# AGENTS.md: read this first (for any AI agent or LLM)
+
+You're helping **Dr. Swapnil Agrawal** (dentist, author, AI creator, Udaipur, India) make **high-quality animated explainer videos**. Quality over quantity: she would rather have one great video than ten cheap ones.
+
+## The system (two repos)
+| Repo | Role |
+|---|---|
+| https://github.com/swapagrawal14/swap-draws | **SwapDraws**: browser whiteboard-animation app (live: https://swap-draws.vercel.app). Videos are written as a **SwapDraws JSON storyboard**. The full storyboard spec and director prompt are in its `AI-STORYBOARD-PROMPT.md`; read and follow it. |
+| https://github.com/swapagrawal14/swap-studio (this repo) | **Swap Studio**: frame-perfect renderer for SwapDraws JSON (`swapdraws-renderer/`) plus a **Remotion brand kit** (`brand-kit/`) for title cards, word-by-word captions, accents and end cards. |
+
+## Channels and credit (always)
+- **Edu Made Fun** (`@edumadefun`), dental education for BDS and NEET MDS students. End card and description must credit **"Dr. Swapnil Agrawal"**.
+- **Swap's AI World**, beginner-friendly AI content. Credit **"Swapnil Agrawal"**.
+- Tone: fun, warm, simple, and **100% accurate**. Check facts against textbooks or guidelines and never invent numbers.
+
+## Brand style
+- Colors: hot pink `#F0509A`, sunny yellow `#FFD94A`, black ink, white or cream paper. Pastel palettes are off-brand.
+- Fonts: Caveat, Permanent Marker, Patrick Hand (in `brand-kit/public/fonts`).
+- Signature: tulip doodles (`brand-kit/public/img/tulip_*.png`) and her avatar (`avatar.jpg`). If a person appears, it must be **her own cartoon character**, never a different girl.
+- **Illustrations must come from an image model** (bold cartoon, thick black outlines, flat bright colors). **Never hand-code SVG illustrations** of characters or scenes; she finds they look like nonsense. Simple hand-drawn accents (underlines, arrows, highlighter swipes, sparkles) are fine.
+- The image model must not draw text. Add all words as SwapDraws text layers or Remotion text, so spelling stays perfect.
+
+## Pipeline (do it in this order)
+1. **Clarify** if missing: topic, channel, length (default 60 s), format (default 9:16, 1080x1920), language (default English).
+2. **Script**: 5–7 scenes, a hook in the first 3 s, one idea per scene, then a call to action to follow.
+3. **Images**: generate the illustrations, under 300 KB each (JPEG/PNG data URLs).
+4. **Voiceover**: free `edge-tts`, voice `en-IN-NeerjaNeural`, rate about +10%. Time each scene to its measured line plus padding.
+5. **Storyboard**: SwapDraws JSON `swapdraws: 1`, whole file ideally under 5 MB. **Exactly one audio source** (a full voiceover track OR per-scene audio, never both). Never set `w`/`h` on text layers. Follow every hard rule in `AI-STORYBOARD-PROMPT.md`.
+6. **Render**: `swapdraws-renderer/render.sh story.swapdraws.json out.mp4 --fps 30 --size 1080x1920`. It draws every frame with the app's engine. The in-app export can drop frames when headless, so prefer this script.
+7. **Brand wrap (optional)**: `brand-kit/render.sh SwapDrawsClip props.json final.mp4` adds the branded intro, captions and end card. Props: `channel: "edu"|"ai"`, `format: "9:16"|"16:9"`, `voiceText` for automatic captions.
+8. **QA before delivering**: check duration, fps and audio with `ffprobe`, then look at 3–5 extracted frames. Check that spelling is perfect, nothing is cut off, it's on-brand, and the facts are right. Fix anything wrong, with at most 2 rounds.
+9. **Deliver**: the MP4, the storyboard JSON, a 9:16 cover PNG, the narration script and the fact sources.
+
+## If you can't run code (chat-only AI)
+Do steps 1–5 and give her the **SwapDraws JSON** (and the script). She imports it at https://swap-draws.vercel.app and exports it there.
+
+## Where to run it
+Any machine with **Node 18+, Chromium/Chrome and ffmpeg** (and Python for edge-tts): her laptop, GitHub Codespaces, or a cloud VM such as Instabox (see `docs/instabox-setup.md`). Never commit API keys or tokens.
