@@ -1,0 +1,18 @@
+{
+  "channel": "edu",
+  "format": "9:16",
+  "title": "Why sugar melts your teeth",
+  "highlight": "melts",
+  "subtitle": "in 10 seconds, dude",
+  "titleSec": 3.2,
+  "endSec": 3,
+  "voiceText": "Dude, sugar feeds bacteria, and their acid melts enamel below pH 5.5!",
+  "voice": "en-IN-NeerjaNeural",
+  "voiceRate": "+12%",
+  "lines": [
+    {"at": 0.2, "size": 150, "segs": [{"text": "Acid attack", "fx": "underline"}]},
+    {"at": 2.6, "size": 135, "segs": [{"text": "melts "}, {"text": "enamel", "fx": "highlight"}]},
+    {"at": 3.6, "size": 140, "segs": [{"text": "below pH "}, {"text": "5.5", "fx": "circle", "label": "critical pH!", "angle": 118}]}
+  ],
+  "lowerThird": {"subtitle": "BDS intern · Edu Made Fun", "sec": 2.6}
+}
