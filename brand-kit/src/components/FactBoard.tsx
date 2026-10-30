@@ -1,6 +1,6 @@
 import React from 'react';
 import {spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {FONT, INK, PINK, Theme} from '../theme';
+import {Theme} from '../theme';
 import {ArrowCircle, HighlightSwipe, WobblyUnderline} from './Accents';
 
 export type FactSeg = {text: string; fx?: 'highlight' | 'underline' | 'circle'; label?: string; angle?: number};
@@ -17,25 +17,27 @@ export const FactBoard: React.FC<{lines: FactLine[]; theme: Theme; top?: number}
       {lines.map((ln, i) => {
         const f0 = Math.round(ln.at * fps);
         const pop = spring({frame: frame - f0, fps, config: {damping: 11, stiffness: 150}});
-        const fam = ln.font === 'marker' ? FONT.marker : ln.font === 'hand' ? FONT.hand : FONT.title;
+        const fc = ln.font === 'marker' ? theme.fonts.caption : ln.font === 'hand' ? theme.fonts.body : theme.fonts.title;
+        const rough = theme.accents === 'rough';
+        const fx = theme.accents === 'none' ? undefined : true;
         return (
           <div
             key={i}
             style={{
-              fontFamily: fam, fontWeight: 700, fontSize: (ln.size ?? 130) * u, color: INK, lineHeight: 1.12,
-              opacity: frame < f0 ? 0 : 1, transform: `scale(${pop}) rotate(${(i % 2 ? 1 : -1) * 1.2}deg)`, marginBottom: 10 * u,
+              fontFamily: fc.css, fontWeight: rough ? 700 : fc.weight, fontSize: (ln.size ?? 130) * u * fc.scale, color: theme.ink, lineHeight: 1.12,
+              opacity: frame < f0 ? 0 : 1, transform: `scale(${pop}) rotate(${(i % 2 ? 1 : -1) * 1.2 * theme.tilt}deg)`, marginBottom: 10 * u,
             }}
           >
             {ln.segs.map((s, j) => {
               const st = f0 + 8 + j * 4;
               const key = `${i}-${j}`;
               if (s.fx === 'highlight')
-                return <HighlightSwipe key={key} start={st} color={theme.id === 'ai' ? theme.accent2 : theme.accent} seed={i * 10 + j + 3}>{s.text}</HighlightSwipe>;
-              if (s.fx === 'underline')
-                return <WobblyUnderline key={key} start={st} color={PINK} thickness={11 * u} seed={i * 10 + j + 5}>{s.text}</WobblyUnderline>;
-              if (s.fx === 'circle')
+                return <HighlightSwipe key={key} start={st} color={theme.highlight} seed={i * 10 + j + 3} clean={!rough} textColor={theme.highlightText}>{s.text}</HighlightSwipe>;
+              if (s.fx === 'underline' && fx)
+                return <WobblyUnderline key={key} start={st} color={theme.mark} thickness={11 * u} seed={i * 10 + j + 5} clean={!rough}>{s.text}</WobblyUnderline>;
+              if (s.fx === 'circle' && fx)
                 return (
-                  <ArrowCircle key={key} start={st} color={PINK} thickness={10 * u} label={s.label} labelColor={INK} labelSize={78 * u} angle={s.angle ?? 30} arrowLength={150 * u} seed={i * 10 + j + 7}>
+                  <ArrowCircle key={key} start={st} color={theme.mark} thickness={10 * u} label={s.label} labelColor={theme.ink} labelSize={78 * u * theme.fonts.title.scale} labelFont={theme.fonts.title.css} labelWeight={theme.fonts.title.weight} angle={s.angle ?? 30} arrowLength={150 * u} seed={i * 10 + j + 7} clean={!rough}>
                     {s.text}
                   </ArrowCircle>
                 );
@@ -48,7 +50,7 @@ export const FactBoard: React.FC<{lines: FactLine[]; theme: Theme; top?: number}
   );
 };
 
-/** Cream paper with faint pink dot grid. */
+/** The pack's paper colour with a faint dot grid (colors.dots). */
 export const Paper: React.FC<{theme: Theme}> = ({theme}) => {
   const {width, height} = useVideoConfig();
   const u = Math.min(width, height) / 1080;
@@ -56,7 +58,7 @@ export const Paper: React.FC<{theme: Theme}> = ({theme}) => {
     <div
       style={{
         position: 'absolute', inset: 0, background: theme.paper,
-        backgroundImage: `radial-gradient(${theme.id === 'ai' ? '#14141422' : '#F0509A33'} ${3.2 * u}px, transparent ${3.6 * u}px)`,
+        backgroundImage: `radial-gradient(${theme.dots} ${3.2 * u}px, transparent ${3.6 * u}px)`,
         backgroundSize: `${54 * u}px ${54 * u}px`,
       }}
     />

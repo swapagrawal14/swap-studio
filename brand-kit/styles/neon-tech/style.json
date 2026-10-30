@@ -1,0 +1,73 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "neon-tech",
+  "label": "Neon Tech",
+  "kicker": "// your channel",
+  "colors": {
+    "bg": "#0B1026",
+    "paper": "#121A3D",
+    "ink": "#E8F4FF",
+    "accent": "#00E5FF",
+    "accent2": "#FF2BD6",
+    "sun": "#16204A",
+    "textOnBg": "#E8F4FF",
+    "shadow": "#FF2BD6",
+    "ring": "#00E5FF",
+    "underline": "#00E5FF",
+    "mark": "#FF2BD6",
+    "dots": "#00E5FF1A",
+    "sparkle": "#00E5FF",
+    "sparkleOutline": "#00E5FF",
+    "wipe": "#00E5FF",
+    "wipe2": "#FF2BD6",
+    "wipeOutline": "#0B1026",
+    "highlightText": "#0B1026",
+    "tagText": "#0B1026"
+  },
+  "fonts": {
+    "title": {
+      "family": "JetBrains Mono",
+      "weight": 800,
+      "src": "fonts/JetBrainsMono-800-normal.woff2",
+      "fallback": "monospace",
+      "scale": 0.56
+    },
+    "body": {
+      "family": "JetBrains Mono",
+      "weight": 500,
+      "src": "fonts/JetBrainsMono-500-normal.woff2",
+      "fallback": "monospace",
+      "scale": 0.68
+    },
+    "caption": {
+      "family": "JetBrains Mono",
+      "weight": 800,
+      "src": "fonts/JetBrainsMono-800-normal.woff2",
+      "fallback": "monospace",
+      "scale": 0.72
+    }
+  },
+  "accents": "clean",
+  "sparkles": true,
+  "radius": 10,
+  "glow": true,
+  "decorations": [],
+  "imageStylePrompt": "Synthwave / cyberpunk neon illustration, dark navy background, glowing cyan #00E5FF and magenta #FF2BD6 line art, grid floor, subtle bloom, futuristic tech objects, no text, no letters, no numbers, no watermark.",
+  "voice": {
+    "name": "en-US-ChristopherNeural",
+    "rate": "+5%"
+  },
+  "endCard": {
+    "name": "Your Name",
+    "handle": "@yourhandle",
+    "channel": "Your Channel",
+    "cta": "Follow for more tech.",
+    "ctaOutline": false
+  },
+  "captions": {
+    "highlightColor": "#00E5FF",
+    "case": "none",
+    "color": "#E8F4FF",
+    "stroke": "#0B1026"
+  }
+}

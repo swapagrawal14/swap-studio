@@ -1,0 +1,69 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "anime-pastel",
+  "label": "Anime Pastel",
+  "kicker": "Your Channel",
+  "colors": {
+    "bg": "#FFD6E8",
+    "paper": "#FFFDF8",
+    "ink": "#4A3B5C",
+    "accent": "#B8E6FF",
+    "accent2": "#FFF1A8",
+    "sun": "#E9D8FF",
+    "textOnBg": "#4A3B5C",
+    "shadow": "#C9A7F5",
+    "ring": "#FFFFFF",
+    "underline": "#FF8FC1",
+    "mark": "#FF8FC1",
+    "dots": "#C9A7F533",
+    "sparkle": "#FFFFFF",
+    "sparkleOutline": "#C9A7F5",
+    "wipe": "#C9A7F5",
+    "wipe2": "#B8E6FF"
+  },
+  "fonts": {
+    "title": {
+      "family": "Baloo 2",
+      "weight": 800,
+      "src": "fonts/Baloo2-800-normal.woff2",
+      "fallback": "sans-serif",
+      "scale": 0.66
+    },
+    "body": {
+      "family": "Nunito",
+      "weight": 700,
+      "src": "fonts/Nunito-700-normal.woff2",
+      "fallback": "sans-serif",
+      "scale": 0.8
+    },
+    "caption": {
+      "family": "Baloo 2",
+      "weight": 800,
+      "src": "fonts/Baloo2-800-normal.woff2",
+      "fallback": "sans-serif",
+      "scale": 0.85
+    }
+  },
+  "accents": "clean",
+  "sparkles": true,
+  "radius": 48,
+  "decorations": [],
+  "imageStylePrompt": "Soft anime / chibi illustration, pastel palette (baby pink, lavender, sky blue, butter yellow), clean thin outlines, cel shading, sparkles and tiny stars, kawaii mood, plain light background, no text, no letters, no watermark.",
+  "voice": {
+    "name": "en-US-AnaNeural",
+    "rate": "+5%"
+  },
+  "endCard": {
+    "name": "Your Name",
+    "handle": "@yourhandle",
+    "channel": "Your Channel",
+    "cta": "Follow for more cute stuff!",
+    "ctaOutline": false
+  },
+  "captions": {
+    "highlightColor": "#FF8FC1",
+    "case": "none",
+    "color": "#FFFFFF",
+    "stroke": "#4A3B5C"
+  }
+}

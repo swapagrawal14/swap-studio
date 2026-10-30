@@ -1,4 +1,4 @@
-// Swapnil brand kit renderer: node render.mjs <composition> <props.json> <out.mp4> [--concurrency 3] [--crf 18] [--preset medium] [--stills 30,200]
+// Swap Studio brand kit renderer: node render.mjs <composition> <props.json> <out.mp4> [--concurrency 3] [--crf 18] [--preset medium] [--stills 30,200]
 import {bundle} from '@remotion/bundler';
 import {renderMedia, renderStill, selectComposition} from '@remotion/renderer';
 import {execFileSync} from 'node:child_process';
@@ -12,9 +12,55 @@ const CHROME = process.env.CHROME || '/usr/bin/chromium';
 const t0 = Date.now();
 const log = (...a) => console.log(`[${((Date.now() - t0) / 1000).toFixed(1)}s]`, ...a);
 
+const STYLES = path.join(ROOT, 'styles');
+const listStyles = () => fs.readdirSync(STYLES, {withFileTypes: true}).filter((e) => e.isDirectory() && !e.name.startsWith('_') && fs.existsSync(path.join(STYLES, e.name, 'style.json'))).map((e) => e.name);
+if (process.argv[2] === '--styles') {
+  for (const n of listStyles()) {
+    const p = JSON.parse(fs.readFileSync(path.join(STYLES, n, 'style.json'), 'utf8'));
+    console.log(`${n.padEnd(18)} ${p.label || ''}`);
+  }
+  process.exit(0);
+}
+
+// ---- style packs: resolve name / inline object / extends into one plain object ----
+const isObj = (v) => v && typeof v === 'object' && !Array.isArray(v);
+const merge = (a, b) => {
+  if (!isObj(a) || !isObj(b)) return b === undefined ? a : b;
+  const o = {...a};
+  for (const k of Object.keys(b)) o[k] = isObj(a[k]) && isObj(b[k]) ? merge(a[k], b[k]) : b[k] === undefined ? a[k] : b[k];
+  return o;
+};
+// "./x.png" / "../x.woff2" in a pack are relative to that pack's folder -> absolute (then copied into the bundle below)
+const absolutize = (pack, dir) => {
+  const fixp = (v) => (typeof v === 'string' && /^\.\.?\//.test(v) ? path.resolve(dir, v) : v);
+  const o = {...pack};
+  if (Array.isArray(o.decorations)) o.decorations = o.decorations.map(fixp);
+  if (o.endCard?.avatar) o.endCard = {...o.endCard, avatar: fixp(o.endCard.avatar)};
+  if (o.fonts) o.fonts = Object.fromEntries(Object.entries(o.fonts).map(([k, f]) => [k, isObj(f) && f.src ? {...f, src: fixp(f.src)} : f]));
+  return o;
+};
+const loadPack = (name, seen = []) => {
+  const file = path.join(STYLES, name, 'style.json');
+  if (!fs.existsSync(file)) throw new Error(`style "${name}" not found. Available: ${listStyles().join(', ')}`);
+  if (seen.includes(name)) throw new Error(`style extends loop: ${[...seen, name].join(' -> ')}`);
+  let p = absolutize(JSON.parse(fs.readFileSync(file, 'utf8')), path.dirname(file));
+  delete p.$schema;
+  if (p.extends) p = merge(loadPack(p.extends, [...seen, name]), {...p, extends: undefined});
+  return p;
+};
+const resolveStyle = (props, propsDir) => {
+  if (typeof props.style === 'string') return loadPack(props.style);
+  if (isObj(props.style)) {
+    const inline = absolutize(props.style, propsDir);
+    const base = inline.extends ? loadPack(inline.extends) : inline.colors && inline.fonts ? {} : loadPack(props.channel === 'ai' ? 'swap-ai' : 'swap-edu');
+    return merge(base, {...inline, extends: undefined});
+  }
+  return null; // legacy "channel" (or nothing): the bundle resolves swap-edu / swap-ai itself
+};
+
 const [, , compId, propsPath, outPath, ...rest] = process.argv;
 if (!compId || !propsPath || !outPath) {
-  console.error('usage: render.sh <composition> <props.json> <out.mp4> [--concurrency 3] [--crf 18] [--preset medium] [--stills 30,200]');
+  console.error('usage: render.sh <composition> <props.json> <out.mp4> [--concurrency 3] [--crf 18] [--preset medium] [--stills 30,200]\n       render.sh --styles   (list style packs)');
   process.exit(2);
 }
 const flag = (n, d) => {
@@ -27,6 +73,14 @@ const preset = flag('preset', 'medium');
 const stills = (flag('stills', '') || '').split(',').filter(Boolean).map(Number);
 
 const props = JSON.parse(fs.readFileSync(propsPath, 'utf8'));
+const style = resolveStyle(props, path.dirname(path.resolve(propsPath)));
+if (style) {
+  for (const k of ['bg', 'paper', 'ink', 'accent', 'accent2']) if (!style.colors?.[k]) throw new Error(`style is missing colors.${k}`);
+  for (const k of ['title', 'body', 'caption']) if (!style.fonts?.[k]) throw new Error(`style is missing fonts.${k}`);
+  props.style = style;
+  log(`style ${style.name || '(inline)'}`);
+}
+const packVoice = (style || loadPack(props.channel === 'ai' ? 'swap-ai' : 'swap-edu')).voice || {};
 const jobId = crypto.randomBytes(4).toString('hex');
 const jobDir = path.join(ROOT, '.jobs', jobId);
 fs.mkdirSync(jobDir, {recursive: true});
@@ -35,8 +89,10 @@ fs.mkdirSync(jobDir, {recursive: true});
 if (props.voiceText && !props.words) {
   const mp3 = path.join(jobDir, 'voice.mp3');
   const js = path.join(jobDir, 'words.json');
-  log('edge-tts', props.voice || 'en-IN-NeerjaNeural');
-  execFileSync('python3', [path.join(ROOT, 'tools/tts_words.py'), props.voiceText, mp3, js, '--voice', props.voice || 'en-IN-NeerjaNeural', '--rate', props.voiceRate || '+0%'], {stdio: 'inherit'});
+  const voice = props.voice || packVoice.name || 'en-IN-NeerjaNeural';
+  const rate = props.voiceRate || packVoice.rate || '+0%';
+  log('edge-tts', voice, rate);
+  execFileSync('python3', [path.join(ROOT, 'tools/tts_words.py'), props.voiceText, mp3, js, '--voice', voice, '--rate', rate], {stdio: 'inherit'});
   const w = JSON.parse(fs.readFileSync(js, 'utf8'));
   props.words = w.words;
   props.audio = mp3;
@@ -53,7 +109,7 @@ if (props.video && !/^https?:/.test(props.video) && props.videoDurationSec == nu
 // 3) bundle (cached on a hash of src/ + public/)
 const walk = (d) => fs.readdirSync(d, {withFileTypes: true}).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
 const h = crypto.createHash('sha1');
-for (const f of [...walk(path.join(ROOT, 'src')), ...walk(path.join(ROOT, 'public'))].sort()) {
+for (const f of [...walk(path.join(ROOT, 'src')), ...walk(path.join(ROOT, 'public')), ...walk(STYLES)].sort()) {
   const s = fs.statSync(f);
   h.update(`${f}:${s.size}:${s.mtimeMs}`);
 }

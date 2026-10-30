@@ -1,0 +1,66 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "swap-ai",
+  "label": "Swap's AI World (Swapnil)",
+  "kicker": "Swap's AI World",
+  "colors": {
+    "bg": "#141414",
+    "paper": "#FFF8EC",
+    "ink": "#141414",
+    "accent": "#F0509A",
+    "accent2": "#FFD94A",
+    "sun": "#F0509A",
+    "textOnBg": "#FFF8EC",
+    "wipe": "#F0509A",
+    "wipe2": "#FFD94A",
+    "shadow": "#F0509A",
+    "ring": "#FFF8EC",
+    "underline": "#F0509A",
+    "mark": "#F0509A",
+    "dots": "#14141422",
+    "sparkle": "#FFFFFF"
+  },
+  "fonts": {
+    "title": {
+      "family": "Caveat",
+      "weight": 700,
+      "src": "fonts/Caveat-700-normal.woff2",
+      "fallback": "cursive"
+    },
+    "body": {
+      "family": "Patrick Hand",
+      "weight": 400,
+      "src": "fonts/PatrickHand-400-normal.woff2",
+      "fallback": "cursive"
+    },
+    "caption": {
+      "family": "Permanent Marker",
+      "weight": 400,
+      "src": "fonts/PermanentMarker-400-normal.woff2",
+      "fallback": "cursive"
+    }
+  },
+  "accents": "rough",
+  "decorations": [
+    "img/tulip_pink.png",
+    "img/tulip_yellow.png",
+    "img/tulip_bunch.png"
+  ],
+  "imageStylePrompt": "Cute hand-drawn doodle illustration, thick black marker outlines, flat fills in hot pink #F0509A, sunshine yellow #FFD94A and white, playful kawaii sticker look, tiny tulip doodles as signature, plain white or transparent background, no text, no letters, no watermark. AI / tech subject (laptops, robots, chat bubbles without words) on a dark ink background feel.",
+  "voice": {
+    "name": "en-IN-NeerjaNeural",
+    "rate": "+0%"
+  },
+  "endCard": {
+    "name": "Swapnil Agrawal",
+    "handle": "@swap_agrawal",
+    "channel": "Swap's AI World",
+    "cta": "Follow for no-fluff AI tips!",
+    "avatar": "img/avatar.jpg",
+    "ctaOutline": false
+  },
+  "captions": {
+    "highlightColor": "#FFD94A",
+    "case": "none"
+  }
+}

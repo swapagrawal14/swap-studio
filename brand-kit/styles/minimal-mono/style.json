@@ -1,0 +1,70 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "minimal-mono",
+  "label": "Minimal Mono",
+  "kicker": "Your Channel",
+  "colors": {
+    "bg": "#FFFFFF",
+    "paper": "#FFFFFF",
+    "ink": "#111111",
+    "accent": "#2F6BFF",
+    "accent2": "#2F6BFF",
+    "sun": "none",
+    "textOnBg": "#111111",
+    "shadow": "#2F6BFF",
+    "ring": "#111111",
+    "underline": "#2F6BFF",
+    "mark": "#2F6BFF",
+    "dots": "#1111110F",
+    "sparkle": "#2F6BFF",
+    "wipe": "#2F6BFF",
+    "wipe2": "#111111",
+    "highlightText": "#FFFFFF",
+    "tagText": "#FFFFFF"
+  },
+  "fonts": {
+    "title": {
+      "family": "Inter",
+      "weight": 800,
+      "src": "fonts/Inter-800-normal.woff2",
+      "fallback": "sans-serif",
+      "scale": 0.6
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 500,
+      "src": "fonts/Inter-500-normal.woff2",
+      "fallback": "sans-serif",
+      "scale": 0.78
+    },
+    "caption": {
+      "family": "Inter",
+      "weight": 800,
+      "src": "fonts/Inter-800-normal.woff2",
+      "fallback": "sans-serif",
+      "scale": 0.78
+    }
+  },
+  "accents": "clean",
+  "sparkles": false,
+  "radius": 0,
+  "decorations": [],
+  "imageStylePrompt": "Minimal flat vector illustration, simple geometric shapes, black line work with a single cobalt blue #2F6BFF accent, lots of white space, Swiss / editorial style, no gradients, no text, no letters, no watermark.",
+  "voice": {
+    "name": "en-US-AriaNeural",
+    "rate": "+0%"
+  },
+  "endCard": {
+    "name": "Your Name",
+    "handle": "@yourhandle",
+    "channel": "Your Channel",
+    "cta": "Follow for more.",
+    "ctaOutline": false
+  },
+  "captions": {
+    "highlightColor": "#2F6BFF",
+    "case": "none",
+    "color": "#FFFFFF",
+    "stroke": "#111111"
+  }
+}

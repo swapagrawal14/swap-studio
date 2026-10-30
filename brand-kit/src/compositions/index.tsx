@@ -1,6 +1,7 @@
 import React from 'react';
 import {AbsoluteFill, Audio, OffthreadVideo, Sequence, useVideoConfig} from 'remotion';
-import {getTheme, INK, Theme} from '../theme';
+import {decoration, getTheme, INK, StyleInput, Theme} from '../theme';
+import {useThemeFonts} from '../fonts';
 import {asset} from '../util';
 import {TitleCard, TitleCardProps} from '../components/TitleCard';
 import {EndCard} from '../components/EndCard';
@@ -9,10 +10,19 @@ import {Word, WordCaptions} from '../components/WordCaptions';
 import {FactBoard, FactLine, Paper} from '../components/FactBoard';
 import {BrushWipe} from '../components/BrushWipe';
 import {Sparkle} from '../components/Accents';
-import {Tulip} from '../components/Tulip';
+import {Decoration} from '../components/Tulip';
 
-export type Common = {format?: '9:16' | '16:9'; channel?: 'edu' | 'ai'; theme?: Partial<Theme>};
-const th = (p: Common) => getTheme(p.channel, p.theme);
+export type Common = {
+  format?: '9:16' | '16:9';
+  style?: StyleInput; // pack name or inline pack (see styles/README.md)
+  channel?: 'edu' | 'ai'; // legacy alias: edu -> swap-edu, ai -> swap-ai
+  theme?: Partial<Theme>; // low-level overrides on the resolved theme
+};
+const th = (p: Common) => {
+  const t = getTheme(p.channel, p.theme, p.style);
+  useThemeFonts(t);
+  return t;
+};
 const F = (sec: number, fps: number) => Math.round(sec * fps);
 
 // ---------- standalone pieces ----------
@@ -77,10 +87,14 @@ export const BrandShowcase: React.FC<ShowcaseComp> = (p) => {
         <AbsoluteFill style={{overflow: 'hidden'}}>
           <Paper theme={t} />
           <FactBoard lines={p.lines} theme={t} />
-          <Tulip kind="yellow" x={width - (portrait ? 250 : 260) * u} y={height - 330 * u} height={330 * u} start={4} rotate={-10} />
-          <Tulip kind="pink" x={-30 * u} y={height - 300 * u} height={290 * u} start={8} rotate={12} flip />
-          <Sparkle x={width - 120 * u} y={120 * u} size={70 * u} color={t.accent} start={6} seed={71} />
-          <Sparkle x={110 * u} y={(portrait ? 150 : 110) * u} size={52 * u} color={t.sun === t.accent ? '#FFFFFF' : t.sun} start={10} seed={72} />
+          <Decoration src={decoration(t, 1)} x={width - (portrait ? 250 : 260) * u} y={height - 330 * u} height={330 * u} start={4} rotate={-10} />
+          <Decoration src={decoration(t, 0)} x={-30 * u} y={height - 300 * u} height={290 * u} start={8} rotate={12} flip />
+          {t.sparkles && (
+            <>
+              <Sparkle x={width - 120 * u} y={120 * u} size={70 * u} color={t.accent} outline={t.sparkleOutline} start={6} seed={71} clean={t.accents !== 'rough'} />
+              <Sparkle x={110 * u} y={(portrait ? 150 : 110) * u} size={52 * u} color={t.sun === t.accent || t.sun === 'none' ? '#FFFFFF' : t.sun} outline={t.sparkleOutline} start={10} seed={72} clean={t.accents !== 'rough'} />
+            </>
+          )}
           {p.lowerThird !== false && (
             <Sequence from={F(0.4, fps)} durationInFrames={F((p.lowerThird && p.lowerThird.sec) || 3, fps)}>
               <LowerThird theme={t} title={p.lowerThird ? p.lowerThird.title : undefined} subtitle={p.lowerThird ? p.lowerThird.subtitle : undefined} durationInFrames={F((p.lowerThird && p.lowerThird.sec) || 3, fps)} />
@@ -101,8 +115,8 @@ export const BrandShowcase: React.FC<ShowcaseComp> = (p) => {
       <Sequence from={a + b} durationInFrames={c} name="End">
         <EndCard theme={t} cta={p.cta} />
       </Sequence>
-      <BrushWipe at={a} color={t.wipe} />
-      <BrushWipe at={a + b} color={t.id === 'edu' ? '#FFFFFF' : t.accent2} seed={9} />
+      <BrushWipe at={a} color={t.wipe} outline={t.wipeOutline} clean={t.accents !== 'rough'} />
+      <BrushWipe at={a + b} color={t.wipe2} seed={9} outline={t.wipeOutline} clean={t.accents !== 'rough'} />
     </AbsoluteFill>
   );
 };
@@ -121,7 +135,7 @@ export const IntroOutro: React.FC<IntroOutroComp> = (p) => {
       <Sequence from={a} durationInFrames={c}>
         <EndCard theme={t} cta={p.cta} />
       </Sequence>
-      <BrushWipe at={a} color={t.wipe} />
+      <BrushWipe at={a} color={t.wipe} outline={t.wipeOutline} clean={t.accents !== 'rough'} />
     </AbsoluteFill>
   );
 };
@@ -155,8 +169,8 @@ export const SwapDrawsClip: React.FC<SwapDrawsClipComp> = (p) => {
       <Sequence from={a + v} durationInFrames={c}>
         <EndCard theme={t} cta={p.cta} />
       </Sequence>
-      <BrushWipe at={a} color={t.wipe} />
-      <BrushWipe at={a + v} color={t.wipe} seed={9} />
+      <BrushWipe at={a} color={t.wipe} outline={t.wipeOutline} clean={t.accents !== 'rough'} />
+      <BrushWipe at={a + v} color={t.wipe} seed={9} outline={t.wipeOutline} clean={t.accents !== 'rough'} />
     </AbsoluteFill>
   );
 };

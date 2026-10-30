@@ -22,6 +22,8 @@ export const WriteOnText: React.FC<{
   lineHeight?: number;
   highlight?: string;
   highlightColor?: string;
+  highlightText?: string; // text colour on the highlight bar
+  cleanHighlight?: boolean;
   wiggle?: number; // max degrees each word leans
   style?: React.CSSProperties;
 }> = ({
@@ -37,6 +39,8 @@ export const WriteOnText: React.FC<{
   lineHeight = 1.05,
   highlight,
   highlightColor = YELLOW,
+  highlightText,
+  cleanHighlight = false,
   wiggle = 1.6,
   style,
 }) => {
@@ -97,7 +101,7 @@ export const WriteOnText: React.FC<{
       hlEndFrame = s + len * fpc;
       if (i === hs + hl.length - 1) {
         items.push(
-          <HighlightSwipe key={`hl${i}`} start={hlEndFrame} duration={9} color={highlightColor} seed={hashStr(tok) % 1000}>
+          <HighlightSwipe key={`hl${i}`} start={hlEndFrame} duration={9} color={highlightColor} seed={hashStr(tok) % 1000} clean={cleanHighlight} textColor={highlightText}>
             {hlGroup}
           </HighlightSwipe>,
         );

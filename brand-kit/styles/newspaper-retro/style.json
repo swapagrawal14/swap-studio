@@ -1,0 +1,71 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "newspaper-retro",
+  "label": "Newspaper Retro",
+  "kicker": "Extra! Extra!",
+  "colors": {
+    "bg": "#EFE6D2",
+    "paper": "#F8F2E3",
+    "ink": "#1D1A16",
+    "accent": "#C8322B",
+    "accent2": "#1D1A16",
+    "sun": "none",
+    "textOnBg": "#1D1A16",
+    "shadow": "#1D1A16",
+    "ring": "#1D1A16",
+    "underline": "#C8322B",
+    "mark": "#C8322B",
+    "dots": "#1D1A1612",
+    "sparkle": "#C8322B",
+    "wipe": "#1D1A16",
+    "wipe2": "#C8322B",
+    "highlightText": "#F8F2E3",
+    "tagText": "#F8F2E3"
+  },
+  "fonts": {
+    "title": {
+      "family": "Playfair Display",
+      "weight": 900,
+      "src": "fonts/PlayfairDisplay-900-normal.woff2",
+      "fallback": "serif",
+      "scale": 0.6
+    },
+    "body": {
+      "family": "Lora",
+      "weight": 500,
+      "src": "fonts/Lora-500-normal.woff2",
+      "fallback": "serif",
+      "scale": 0.78
+    },
+    "caption": {
+      "family": "Playfair Display",
+      "weight": 900,
+      "src": "fonts/PlayfairDisplay-900-normal.woff2",
+      "fallback": "serif",
+      "scale": 0.8
+    }
+  },
+  "accents": "clean",
+  "sparkles": false,
+  "radius": 0,
+  "decorations": [],
+  "imageStylePrompt": "Vintage 1940s newspaper engraving / halftone illustration, black ink cross-hatching on cream newsprint, one spot color of brick red #C8322B, retro print texture, no text, no headlines, no letters, no watermark.",
+  "voice": {
+    "name": "en-GB-RyanNeural",
+    "rate": "+0%"
+  },
+  "endCard": {
+    "name": "Your Name",
+    "handle": "@yourhandle",
+    "channel": "Your Channel",
+    "cta": "Read all about it. Follow!",
+    "ctaOutline": false,
+    "button": "Subscribe"
+  },
+  "captions": {
+    "highlightColor": "#C8322B",
+    "case": "upper",
+    "color": "#F8F2E3",
+    "stroke": "#1D1A16"
+  }
+}

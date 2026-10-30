@@ -1,0 +1,66 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "swap-edu",
+  "label": "Edu Made Fun (Swapnil)",
+  "kicker": "Edu Made Fun",
+  "colors": {
+    "bg": "#F0509A",
+    "paper": "#FFF8EC",
+    "ink": "#141414",
+    "accent": "#FFD94A",
+    "accent2": "#FFFFFF",
+    "sun": "#FFD94A",
+    "textOnBg": "#FFFFFF",
+    "wipe": "#FFD94A",
+    "wipe2": "#FFFFFF",
+    "shadow": "#141414",
+    "ring": "#141414",
+    "underline": "#141414",
+    "mark": "#F0509A",
+    "dots": "#F0509A33",
+    "sparkle": "#FFFFFF"
+  },
+  "fonts": {
+    "title": {
+      "family": "Caveat",
+      "weight": 700,
+      "src": "fonts/Caveat-700-normal.woff2",
+      "fallback": "cursive"
+    },
+    "body": {
+      "family": "Patrick Hand",
+      "weight": 400,
+      "src": "fonts/PatrickHand-400-normal.woff2",
+      "fallback": "cursive"
+    },
+    "caption": {
+      "family": "Permanent Marker",
+      "weight": 400,
+      "src": "fonts/PermanentMarker-400-normal.woff2",
+      "fallback": "cursive"
+    }
+  },
+  "accents": "rough",
+  "decorations": [
+    "img/tulip_pink.png",
+    "img/tulip_yellow.png",
+    "img/tulip_bunch.png"
+  ],
+  "imageStylePrompt": "Cute hand-drawn doodle illustration, thick black marker outlines, flat fills in hot pink #F0509A, sunshine yellow #FFD94A and white, playful kawaii sticker look, tiny tulip doodles as signature, plain white or transparent background, no text, no letters, no watermark. Dental / science explainer subject.",
+  "voice": {
+    "name": "en-IN-NeerjaNeural",
+    "rate": "+0%"
+  },
+  "endCard": {
+    "name": "Dr. Swapnil Agrawal",
+    "handle": "@edumadefun",
+    "channel": "Edu Made Fun",
+    "cta": "Follow for more fun dental bites!",
+    "avatar": "img/avatar.jpg",
+    "ctaOutline": true
+  },
+  "captions": {
+    "highlightColor": "#FFD94A",
+    "case": "none"
+  }
+}

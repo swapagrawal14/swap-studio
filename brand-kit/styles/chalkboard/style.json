@@ -1,0 +1,71 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "chalkboard",
+  "label": "Chalkboard",
+  "kicker": "Today's lesson",
+  "colors": {
+    "bg": "#1F3B2D",
+    "paper": "#2B4F3C",
+    "ink": "#F4F1E6",
+    "accent": "#FFE27A",
+    "accent2": "#9ED8F0",
+    "sun": "#28483A",
+    "textOnBg": "#F4F1E6",
+    "shadow": "#132A1F",
+    "ring": "#F4F1E6",
+    "underline": "#FFE27A",
+    "mark": "#FFE27A",
+    "dots": "#F4F1E614",
+    "sparkle": "#F4F1E6",
+    "sparkleOutline": "#F4F1E6",
+    "wipe": "#F4F1E6",
+    "wipe2": "#FFE27A",
+    "wipeOutline": "#132A1F",
+    "tagText": "#1F3B2D",
+    "highlightText": "#1F3B2D"
+  },
+  "fonts": {
+    "title": {
+      "family": "Cabin Sketch",
+      "weight": 700,
+      "src": "fonts/CabinSketch-700-normal.woff2",
+      "fallback": "cursive",
+      "scale": 0.82
+    },
+    "body": {
+      "family": "Schoolbell",
+      "weight": 400,
+      "src": "fonts/Schoolbell-400-normal.woff2",
+      "fallback": "cursive",
+      "scale": 0.95
+    },
+    "caption": {
+      "family": "Cabin Sketch",
+      "weight": 700,
+      "src": "fonts/CabinSketch-700-normal.woff2",
+      "fallback": "cursive",
+      "scale": 0.85
+    }
+  },
+  "accents": "rough",
+  "decorations": [],
+  "imageStylePrompt": "Chalk drawing on a dark green school chalkboard, white and pale yellow chalk lines with soft dusty texture and smudges, simple diagram-like classroom illustration, hand-drawn, no text, no letters, no numbers, no watermark.",
+  "voice": {
+    "name": "en-US-GuyNeural",
+    "rate": "+0%"
+  },
+  "endCard": {
+    "name": "Your Name",
+    "handle": "@yourhandle",
+    "channel": "Your Channel",
+    "cta": "Class dismissed. Follow for more!",
+    "ctaOutline": false,
+    "button": "+ Follow"
+  },
+  "captions": {
+    "highlightColor": "#FFE27A",
+    "case": "none",
+    "color": "#F4F1E6",
+    "stroke": "#132A1F"
+  }
+}

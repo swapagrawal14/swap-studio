@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/swapagrawal14/swap-studio/brand-kit/styles/style.schema.json",
+  "title": "Swap Studio style pack",
+  "type": "object",
+  "required": [
+    "name",
+    "colors",
+    "fonts"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "pack id = folder name"
+    },
+    "label": {
+      "type": "string",
+      "description": "human name"
+    },
+    "extends": {
+      "type": "string",
+      "description": "another pack's name; this pack only overrides what it sets"
+    },
+    "kicker": {
+      "type": "string",
+      "description": "default text of the small tag above the title card"
+    },
+    "colors": {
+      "type": "object",
+      "required": [
+        "bg",
+        "paper",
+        "ink",
+        "accent",
+        "accent2"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "bg": {
+          "type": "string",
+          "description": "main background"
+        },
+        "paper": {
+          "type": "string",
+          "description": "card / board background"
+        },
+        "ink": {
+          "type": "string",
+          "description": "text on paper + outlines"
+        },
+        "accent": {
+          "type": "string",
+          "description": "main accent (tag, highlight default)"
+        },
+        "accent2": {
+          "type": "string",
+          "description": "second accent (some sparkles, 2nd wipe)"
+        },
+        "sun": {
+          "type": "string",
+          "description": "big circle behind the title; \"none\" hides it (default accent)"
+        },
+        "textOnBg": {
+          "type": "string",
+          "description": "text placed straight on bg, e.g. end-card CTA (default ink)"
+        },
+        "wipe": {
+          "type": "string",
+          "description": "brush-wipe transition colour (default accent)"
+        },
+        "wipe2": {
+          "type": "string",
+          "description": "second wipe (default accent2)"
+        },
+        "wipeOutline": {
+          "type": "string",
+          "description": "default ink"
+        },
+        "shadow": {
+          "type": "string",
+          "description": "offset card/button shadow (default ink)"
+        },
+        "ring": {
+          "type": "string",
+          "description": "avatar ring (default ink)"
+        },
+        "underline": {
+          "type": "string",
+          "description": "end-card name underline (default accent)"
+        },
+        "mark": {
+          "type": "string",
+          "description": "fact-board underline + arrow circle (default accent)"
+        },
+        "dots": {
+          "type": "string",
+          "description": "paper dot grid, use alpha (default ink at 13%)"
+        },
+        "sparkle": {
+          "type": "string",
+          "description": "sparkle fill (default white)"
+        },
+        "sparkleOutline": {
+          "type": "string",
+          "description": "default ink"
+        },
+        "highlightText": {
+          "type": "string",
+          "description": "text colour on the highlight bar (for dark highlight colours)"
+        },
+        "tagText": {
+          "type": "string",
+          "description": "text on accent-filled tags / initials (default ink)"
+        }
+      }
+    },
+    "fonts": {
+      "type": "object",
+      "required": [
+        "title",
+        "body",
+        "caption"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Google Fonts family name, e.g. \"Inter\" (fetched at render time, needs internet)"
+            },
+            {
+              "type": "object",
+              "required": [
+                "family"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "family": {
+                  "type": "string",
+                  "description": "CSS font-family name"
+                },
+                "weight": {
+                  "type": [
+                    "number",
+                    "string"
+                  ],
+                  "default": 400
+                },
+                "style": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "italic"
+                  ],
+                  "default": "normal"
+                },
+                "src": {
+                  "type": "string",
+                  "description": "woff2 file: \"fonts/X.woff2\" (in brand-kit/public), \"./X.woff2\" (in this pack's folder) or an https url. Omit to load the family from Google Fonts."
+                },
+                "fallback": {
+                  "type": "string",
+                  "default": "sans-serif",
+                  "description": "generic fallback: sans-serif, serif, monospace, cursive"
+                },
+                "scale": {
+                  "type": "number",
+                  "default": 1,
+                  "description": "size multiplier. Sizes were tuned for narrow handwriting (Caveat); wide fonts like Inter need ~0.6"
+                }
+              }
+            }
+          ],
+          "description": "titles, CTA, fact lines"
+        },
+        "body": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Google Fonts family name, e.g. \"Inter\" (fetched at render time, needs internet)"
+            },
+            {
+              "type": "object",
+              "required": [
+                "family"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "family": {
+                  "type": "string",
+                  "description": "CSS font-family name"
+                },
+                "weight": {
+                  "type": [
+                    "number",
+                    "string"
+                  ],
+                  "default": 400
+                },
+                "style": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "italic"
+                  ],
+                  "default": "normal"
+                },
+                "src": {
+                  "type": "string",
+                  "description": "woff2 file: \"fonts/X.woff2\" (in brand-kit/public), \"./X.woff2\" (in this pack's folder) or an https url. Omit to load the family from Google Fonts."
+                },
+                "fallback": {
+                  "type": "string",
+                  "default": "sans-serif",
+                  "description": "generic fallback: sans-serif, serif, monospace, cursive"
+                },
+                "scale": {
+                  "type": "number",
+                  "default": 1,
+                  "description": "size multiplier. Sizes were tuned for narrow handwriting (Caveat); wide fonts like Inter need ~0.6"
+                }
+              }
+            }
+          ],
+          "description": "subtitles, small text"
+        },
+        "caption": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Google Fonts family name, e.g. \"Inter\" (fetched at render time, needs internet)"
+            },
+            {
+              "type": "object",
+              "required": [
+                "family"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "family": {
+                  "type": "string",
+                  "description": "CSS font-family name"
+                },
+                "weight": {
+                  "type": [
+                    "number",
+                    "string"
+                  ],
+                  "default": 400
+                },
+                "style": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "italic"
+                  ],
+                  "default": "normal"
+                },
+                "src": {
+                  "type": "string",
+                  "description": "woff2 file: \"fonts/X.woff2\" (in brand-kit/public), \"./X.woff2\" (in this pack's folder) or an https url. Omit to load the family from Google Fonts."
+                },
+                "fallback": {
+                  "type": "string",
+                  "default": "sans-serif",
+                  "description": "generic fallback: sans-serif, serif, monospace, cursive"
+                },
+                "scale": {
+                  "type": "number",
+                  "default": 1,
+                  "description": "size multiplier. Sizes were tuned for narrow handwriting (Caveat); wide fonts like Inter need ~0.6"
+                }
+              }
+            }
+          ],
+          "description": "karaoke captions"
+        },
+        "label": {
+          "oneOf": [
+            {
+              "type": "string",
+              "description": "Google Fonts family name, e.g. \"Inter\" (fetched at render time, needs internet)"
+            },
+            {
+              "type": "object",
+              "required": [
+                "family"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "family": {
+                  "type": "string",
+                  "description": "CSS font-family name"
+                },
+                "weight": {
+                  "type": [
+                    "number",
+                    "string"
+                  ],
+                  "default": 400
+                },
+                "style": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "italic"
+                  ],
+                  "default": "normal"
+                },
+                "src": {
+                  "type": "string",
+                  "description": "woff2 file: \"fonts/X.woff2\" (in brand-kit/public), \"./X.woff2\" (in this pack's folder) or an https url. Omit to load the family from Google Fonts."
+                },
+                "fallback": {
+                  "type": "string",
+                  "default": "sans-serif",
+                  "description": "generic fallback: sans-serif, serif, monospace, cursive"
+                },
+                "scale": {
+                  "type": "number",
+                  "default": 1,
+                  "description": "size multiplier. Sizes were tuned for narrow handwriting (Caveat); wide fonts like Inter need ~0.6"
+                }
+              }
+            }
+          ],
+          "description": "tags, name, handle, button (default caption)"
+        }
+      }
+    },
+    "accents": {
+      "type": "string",
+      "enum": [
+        "rough",
+        "clean",
+        "none"
+      ],
+      "default": "rough",
+      "description": "rough = hand-drawn wobble + tilts (rough.js); clean = straight lines, no tilt; none = also drops underline/circle accents and sparkles"
+    },
+    "sparkles": {
+      "type": "boolean",
+      "description": "twinkling sparkles (default: true unless accents is none)"
+    },
+    "radius": {
+      "type": "number",
+      "default": 14,
+      "description": "corner radius (px at 1080) for clean cards/tags/buttons"
+    },
+    "glow": {
+      "type": "boolean",
+      "default": false,
+      "description": "neon glow on title and card"
+    },
+    "decorations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "image-model PNGs (transparent) that pop in around cards: slot 0 bottom-left of title, 1 top-right, 2 by the avatar. \"img/x.png\" = brand-kit/public, \"./x.png\" = this pack folder, or https url"
+    },
+    "imageStylePrompt": {
+      "type": "string",
+      "description": "style text appended to every illustration prompt for the image model. Must say no text / letters."
+    },
+    "voice": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "edge-tts voice, e.g. en-US-AriaNeural (edge-tts --list-voices)"
+        },
+        "rate": {
+          "type": "string",
+          "pattern": "^[+-][0-9]+%$",
+          "default": "+0%"
+        }
+      }
+    },
+    "endCard": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "handle": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "cta": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "image path/url; omitted = initials circle"
+        },
+        "button": {
+          "type": "string",
+          "default": "+ Follow"
+        },
+        "ctaOutline": {
+          "type": "boolean",
+          "default": false,
+          "description": "sticker outline + shadow on the CTA"
+        }
+      }
+    },
+    "captions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "highlightColor": {
+          "type": "string",
+          "description": "spoken word + marker highlight (default accent)"
+        },
+        "case": {
+          "type": "string",
+          "enum": [
+            "none",
+            "upper",
+            "lower"
+          ],
+          "default": "none"
+        },
+        "color": {
+          "type": "string",
+          "description": "caption fill (default white)"
+        },
+        "stroke": {
+          "type": "string",
+          "description": "caption outline, or \"none\" (default ink)"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

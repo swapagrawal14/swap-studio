@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
-import {FONT, INK, Theme, WHITE} from '../theme';
+import {Theme} from '../theme';
 
 export type Word = {word: string; start: number; end: number}; // seconds, relative to the voiceover start
 
@@ -45,14 +45,17 @@ export const WordCaptions: React.FC<{
   if (idx < 0) return null;
   const page = pages[idx];
   const enter = spring({frame: frame - Math.round(page.start * fps), fps, config: {damping: 12, stiffness: 200}});
-  const fs = fontSize ?? (portrait ? 100 : 84) * u;
-  const act = activeColor || (theme.id === 'ai' ? theme.accent2 : theme.accent);
+  const cf = theme.fonts.caption;
+  const fs = fontSize ?? (portrait ? 100 : 84) * u * cf.scale;
+  const act = activeColor || theme.highlight;
+  const stroke = theme.stickerStroke === 'none' ? undefined : theme.stickerStroke;
   return (
     <div
       style={{
         position: 'absolute', left: 60 * u, right: 60 * u, top: top ?? (portrait ? height * 0.6 : height * 0.74),
-        textAlign: 'center', fontFamily: FONT.marker, fontSize: fs, lineHeight: 1.22, zIndex: 30, letterSpacing: '0.03em', wordSpacing: '0.12em',
+        textAlign: 'center', fontFamily: cf.css, fontWeight: cf.weight, fontSize: fs, lineHeight: 1.22, zIndex: 30, letterSpacing: '0.03em', wordSpacing: '0.12em',
         transform: `scale(${interpolate(enter, [0, 1], [0.82, 1])})`,
+        textTransform: theme.captionCase === 'upper' ? 'uppercase' : theme.captionCase === 'lower' ? 'lowercase' : undefined,
       }}
     >
       {page.words.map((w, i) => {
@@ -64,12 +67,12 @@ export const WordCaptions: React.FC<{
             <span
               style={{
                 display: 'inline-block',
-                color: active ? act : WHITE,
+                color: active ? act : theme.sticker,
                 opacity: said ? 1 : 0.92,
-                WebkitTextStroke: `${10 * u}px ${INK}`,
+                WebkitTextStroke: stroke ? `${10 * u}px ${stroke}` : undefined,
                 paintOrder: 'stroke fill',
-                transform: `scale(${1 + 0.14 * pop}) rotate(${active ? -2 : 0}deg)`,
-                textShadow: `${6 * u}px ${7 * u}px 0 ${INK}`,
+                transform: `scale(${1 + 0.14 * pop}) rotate(${active ? -2 * theme.tilt : 0}deg)`,
+                textShadow: stroke ? `${6 * u}px ${7 * u}px 0 ${stroke}` : undefined,
               }}
             >
               {w.word}

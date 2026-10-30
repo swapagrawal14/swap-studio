@@ -1,0 +1,50 @@
+{
+  "$schema": "../style.schema.json",
+  "name": "my-style",
+  "label": "My Style",
+  "kicker": "Your Channel",
+  "colors": {
+    "bg": "#FFF4E0",
+    "paper": "#FFFFFF",
+    "ink": "#222222",
+    "accent": "#FF7A45",
+    "accent2": "#3DB5A6"
+  },
+  "fonts": {
+    "title": {
+      "family": "Fredoka",
+      "weight": 700,
+      "fallback": "sans-serif",
+      "scale": 0.7
+    },
+    "body": {
+      "family": "Nunito",
+      "weight": 600,
+      "fallback": "sans-serif",
+      "scale": 0.8
+    },
+    "caption": {
+      "family": "Fredoka",
+      "weight": 700,
+      "fallback": "sans-serif",
+      "scale": 0.85
+    }
+  },
+  "accents": "clean",
+  "decorations": [],
+  "imageStylePrompt": "Describe the illustration look here: medium (flat vector / watercolor / 3D clay / chalk...), line style, palette with hex codes, mood, background. End with: no text, no letters, no watermark.",
+  "voice": {
+    "name": "en-US-AriaNeural",
+    "rate": "+0%"
+  },
+  "endCard": {
+    "name": "Your Name",
+    "handle": "@yourhandle",
+    "channel": "Your Channel",
+    "cta": "Follow for more!"
+  },
+  "captions": {
+    "highlightColor": "#FF7A45",
+    "case": "none"
+  }
+}
